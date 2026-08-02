@@ -15,3 +15,12 @@ Route::get('/run-migrations', function () {
         return 'Error: ' . $e->getMessage();
     }
 });
+
+Route::get('/run-seeder', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+        return 'Seeder completed successfully: ' . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
