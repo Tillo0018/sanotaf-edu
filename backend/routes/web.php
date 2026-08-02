@@ -24,3 +24,15 @@ Route::get('/run-seeder', function () {
         return 'Error: ' . $e->getMessage();
     }
 });
+
+
+Route::get("storage/{path}", function ($path) {
+    $file = storage_path("app/public/" . $path);
+    if (!file_exists($file)) {
+        abort(404);
+    }
+    
+    $mimeType = \Illuminate\Support\Facades\File::mimeType($file);
+    return response()->file($file, ["Content-Type" => $mimeType]);
+})->where("path", ".*");
+
