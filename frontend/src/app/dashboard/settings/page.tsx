@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { User, Mail, Globe, Moon, Sun, Monitor, Shield, Save, Upload, MapPin, Briefcase, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_URL = 'https://sanotaf-edu.up.railway.app/api';
 
 export default function SettingsPage() {
   const { user, checkAuth } = useAuth();

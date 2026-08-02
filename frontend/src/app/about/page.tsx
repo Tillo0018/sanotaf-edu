@@ -7,7 +7,7 @@ import { Leaf, GraduationCap, BrainCircuit, FileText, BookOpen, Download, Loader
 import Link from "next/link";
 import { fetchApi } from "@/lib/api";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_URL = 'https://sanotaf-edu.up.railway.app/api';
 const STORAGE_URL = API_URL.replace('/api', '') + '/storage/';
 
 export default function About() {

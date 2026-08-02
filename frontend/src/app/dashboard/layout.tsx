@@ -89,7 +89,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-secondary to-primary p-0.5 overflow-hidden">
               <div className="w-full h-full bg-background rounded-full flex items-center justify-center font-bold overflow-hidden">
                 {user.avatar ? (
-                  <img src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:8000'}/storage/${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
+                  <img src={`https://sanotaf-edu.up.railway.app/storage/${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
                   user.name.charAt(0).toUpperCase()
                 )}

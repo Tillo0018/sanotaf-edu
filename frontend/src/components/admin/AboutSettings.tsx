@@ -5,7 +5,7 @@ import { fetchApi } from "@/lib/api";
 import { Plus, Trash2, Edit, Loader2, BookOpen, GraduationCap, Briefcase } from "lucide-react";
 import 'react-quill-new/dist/quill.snow.css';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_URL = 'https://sanotaf-edu.up.railway.app/api';
 const STORAGE_URL = API_URL.replace('/api', '') + '/storage/';
 
 export default function AboutSettings() {
