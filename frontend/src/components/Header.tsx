@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Leaf, Sun, Moon, Globe } from "lucide-react";
+import { Leaf, Sun, Moon, Globe, Menu, X } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
@@ -13,6 +13,7 @@ export default function Header() {
   const { theme, setTheme } = useTheme();
   const { user, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -78,7 +79,7 @@ export default function Header() {
               </Link>
               <button 
                 onClick={logout}
-                className="px-4 py-2 md:px-6 md:py-2.5 bg-background border border-foreground/10 text-foreground rounded-full font-medium hover:bg-foreground/5 transition-all text-sm md:text-base"
+                className="hidden sm:block px-4 py-2 md:px-6 md:py-2.5 bg-background border border-foreground/10 text-foreground rounded-full font-medium hover:bg-foreground/5 transition-all text-sm md:text-base"
               >
                 {t.dashboard.logout}
               </button>
@@ -88,13 +89,55 @@ export default function Header() {
               <Link href="/login" className="hidden lg:block px-4 py-2 font-medium hover:text-primary transition-colors">
                 {t.nav.login}
               </Link>
-              <Link href="/register" className="px-4 py-2 md:px-6 md:py-2.5 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-all shadow-[0_0_15px_rgba(139,92,246,0.5)] text-sm md:text-base">
+              <Link href="/register" className="hidden sm:block px-4 py-2 md:px-6 md:py-2.5 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-all shadow-[0_0_15px_rgba(139,92,246,0.5)] text-sm md:text-base">
+                {t.nav.register}
+              </Link>
+            </>
+          )}
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors ml-1"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation Dropdown */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b border-white/10 p-6 flex flex-col gap-4 shadow-xl z-50">
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.home}</Link>
+          <Link href="/courses" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.courses}</Link>
+          <Link href="/leaderboard" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.leaderboard}</Link>
+          <Link href="/statistics" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.statistics}</Link>
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.about}</Link>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.contact}</Link>
+          
+          <div className="h-px bg-foreground/10 my-2 w-full"></div>
+          
+          {user ? (
+            <>
+              <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">
+                {user.name} (Shaxsiy xona)
+              </Link>
+              <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="text-left font-medium hover:text-red-500 transition-colors">
+                {t.dashboard.logout}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">
+                {t.nav.login}
+              </Link>
+              <Link href="/register" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">
                 {t.nav.register}
               </Link>
             </>
           )}
         </div>
-      </div>
+      )}
     </header>
   );
 }
