@@ -63,7 +63,7 @@ class ChatController extends Controller
         ];
 
         try {
-            $response = Http::post($url, [
+            $response = Http::timeout(60)->retry(3, 3000)->post($url, [
                 'contents' => $contents
             ]);
 
