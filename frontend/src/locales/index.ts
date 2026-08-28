@@ -166,6 +166,7 @@ export const translations = {
     nav: {
       home: "Главная",
       courses: "Курсы",
+      virtualLab: "Virtual Lab",
       leaderboard: "Рейтинг",
       about: "О нас",
       contact: "Контакты",
@@ -268,6 +269,7 @@ export const translations = {
     nav: {
       home: "Home",
       courses: "Courses",
+      virtualLab: "Virtual Lab",
       leaderboard: "Leaderboard",
       about: "About Us",
       contact: "Contact",
