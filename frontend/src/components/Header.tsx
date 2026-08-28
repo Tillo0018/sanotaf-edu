@@ -35,6 +35,7 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-foreground/80">
           <Link href="/" className="hover:text-primary transition-colors">{t.nav.home}</Link>
           <Link href="/courses" className="hover:text-primary transition-colors">{t.nav.courses}</Link>
+          <Link href="/virtual-lab" className="hover:text-primary transition-colors font-semibold text-primary">{t.nav.virtualLab || "Virtual Lab"}</Link>
           <Link href="/leaderboard" className="hover:text-primary transition-colors">{t.nav.leaderboard}</Link>
           <Link href="/statistics" className="hover:text-primary transition-colors">{t.nav.statistics}</Link>
           <Link href="/about" className="hover:text-primary transition-colors">{t.nav.about}</Link>
@@ -110,6 +111,7 @@ export default function Header() {
         <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b border-white/10 p-6 flex flex-col gap-4 shadow-xl z-50">
           <Link href="/" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.home}</Link>
           <Link href="/courses" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.courses}</Link>
+          <Link href="/virtual-lab" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors font-semibold text-primary">{t.nav.virtualLab || "Virtual Lab"}</Link>
           <Link href="/leaderboard" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.leaderboard}</Link>
           <Link href="/statistics" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.statistics}</Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.about}</Link>

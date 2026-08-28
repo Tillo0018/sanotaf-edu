@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
-import { Brain, LayoutDashboard, MessageSquare, Settings, LogOut, TreePine, Loader2, Trophy, Shield, BarChart2, Home } from "lucide-react";
+import { Brain, LayoutDashboard, MessageSquare, Settings, LogOut, TreePine, Loader2, Trophy, Shield, BarChart2, Home, Beaker } from "lucide-react";
 import { useAuth } from "@/context/UserContext";
 import { useEffect } from "react";
 
@@ -30,6 +30,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const menuItems = [
     { name: t.nav.home, icon: Home, path: "/" },
     { name: t.dashboard.courses, icon: LayoutDashboard, path: "/dashboard" },
+    { name: t.nav.virtualLab || "Virtual Lab", icon: Beaker, path: "/dashboard/virtual-lab" },
     { name: t.dashboard.aiChat, icon: MessageSquare, path: "/dashboard/chat" },
     { name: t.dashboard.statistics, icon: BarChart2, path: "/dashboard/progress" },
     { name: "Murojaatlar", icon: MessageSquare, path: "/dashboard/messages" },

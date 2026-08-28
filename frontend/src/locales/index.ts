@@ -63,6 +63,7 @@ export const translations = {
     nav: {
       home: "Bosh sahifa",
       courses: "Kurslar",
+      virtualLab: "Virtual Laboratoriya",
       leaderboard: "Reyting",
       about: "Biz haqimizda",
       contact: "Bog'lanish",
