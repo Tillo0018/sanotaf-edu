@@ -1,6 +1,5 @@
-﻿import VirtualLab from "@/components/VirtualLab";
+import VirtualLab from "@/components/VirtualLab";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export const metadata = {
   title: 'Virtual Laboratoriya | Sanotaf Edu',
@@ -14,7 +13,6 @@ export default function VirtualLabPage() {
       <div className="flex-1 max-w-7xl mx-auto px-6 pt-32 w-full">
         <VirtualLab />
       </div>
-      <Footer />
     </main>
   );
 }
