@@ -29,7 +29,7 @@ class ChatController extends Controller
         }
 
         // Real Gemini API Call
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={$apiKey}";
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={$apiKey}";
 
         // Prepare the payload for Gemini
         // We inject a system prompt at the beginning of the context
