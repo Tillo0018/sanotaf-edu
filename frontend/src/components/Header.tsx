@@ -32,7 +32,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-foreground/80">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm font-medium text-foreground/80 whitespace-nowrap">
           <Link href="/" className="hover:text-primary transition-colors">{t.nav.home}</Link>
           <Link href="/courses" className="hover:text-primary transition-colors">{t.nav.courses}</Link>
           <Link href="/virtual-lab" className="hover:text-primary transition-colors font-semibold text-primary">{t.nav.virtualLab || "Virtual Lab"}</Link>
@@ -99,7 +99,7 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors ml-1"
+            className="lg:hidden p-2 rounded-full hover:bg-white/10 transition-colors ml-1"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -108,7 +108,7 @@ export default function Header() {
 
       {/* Mobile Navigation Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b border-white/10 p-6 flex flex-col gap-4 shadow-xl z-50">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b border-white/10 p-6 flex flex-col gap-4 shadow-xl z-50">
           <Link href="/" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.home}</Link>
           <Link href="/courses" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors">{t.nav.courses}</Link>
           <Link href="/virtual-lab" onClick={() => setMobileMenuOpen(false)} className="font-medium hover:text-primary transition-colors font-semibold text-primary">{t.nav.virtualLab || "Virtual Lab"}</Link>
