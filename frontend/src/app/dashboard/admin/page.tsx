@@ -356,6 +356,31 @@ export default function AdminPage() {
     }
   };
 
+  const handleExportExcel = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api'}/admin/export-surveys`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) throw new Error("Yuklashda xatolik");
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Foydalanuvchilar_malumotlari.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      alert("Eksport qilishda xatolik yuz berdi.");
+      console.error(err);
+    }
+  };
+
   if (authLoading || loading && users.length === 0 && courses.length === 0) {
     return <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin text-primary" size={40} /></div>;
   }
@@ -498,7 +523,16 @@ export default function AdminPage() {
         {/* USERS TAB */}
         {activeTab === 'users' && (
           <div className="flex-1">
-            <h2 className="text-xl font-bold mb-4">O'qituvchilar ro'yxati</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold">O'qituvchilar ro'yxati</h2>
+              <button 
+                onClick={handleExportExcel} 
+                className="px-4 py-2 bg-green-600/20 text-green-500 font-semibold rounded-xl flex items-center gap-2 hover:bg-green-600/30 transition-all border border-green-500/20"
+              >
+                <FileText size={18} />
+                Ma'lumotlarni Excellga Eksport Qilish
+              </button>
+            </div>
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-white/10 text-foreground/60 text-sm">

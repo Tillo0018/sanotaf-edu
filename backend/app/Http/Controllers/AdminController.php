@@ -277,4 +277,68 @@ class AdminController extends Controller
         Question::destroy($id);
         return response()->json(['status' => 'success']);
     }
+
+    // GET /api/admin/export-surveys
+    public function exportSurveys(Request $request)
+    {
+        if ($request->user()->role !== 'admin') return response()->json(['status' => 'error'], 403);
+
+        $users = User::with(['surveys'])->get();
+        
+        $filename = 'Foydalanuvchilar_malumotlari.csv';
+        $headers = [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ];
+        
+        $callback = function() use($users) {
+            $file = fopen('php://output', 'w');
+            
+            // Add BOM for UTF-8 correctly in excel
+            fputs($file, "\xEF\xBB\xBF");
+            
+            $columns = [
+                'ID (Tartib raqami)', 'Markaz', 'Guruh', 'Staj', 'Jinsi', 'Shahar/Qishloq'
+            ];
+            for ($i = 1; $i <= 30; $i++) {
+                $columns[] = 'K' . $i;
+            }
+            for ($i = 1; $i <= 30; $i++) {
+                $columns[] = 'C' . $i;
+            }
+            fputcsv($file, $columns);
+            
+            $seq = 1;
+            foreach ($users as $u) {
+                $pre = $u->surveys->whereIn('type', ['pre', 'kirish'])->first();
+                $post = $u->surveys->whereIn('type', ['post', 'chiqish'])->first();
+                
+                if (!$pre && !$post) continue;
+                
+                $row = [
+                    $seq++,
+                    $u->region,
+                    $u->group,
+                    $u->pedagogical_experience,
+                    $u->gender,
+                    $u->school_location,
+                ];
+                
+                $preAns = $pre ? (is_array($pre->answers) ? $pre->answers : json_decode($pre->answers, true)) : [];
+                for ($i = 1; $i <= 30; $i++) {
+                    $row[] = isset($preAns['q'.$i]) ? $preAns['q'.$i] : '';
+                }
+                
+                $postAns = $post ? (is_array($post->answers) ? $post->answers : json_decode($post->answers, true)) : [];
+                for ($i = 1; $i <= 30; $i++) {
+                    $row[] = isset($postAns['q'.$i]) ? $postAns['q'.$i] : '';
+                }
+                
+                fputcsv($file, $row);
+            }
+            fclose($file);
+        };
+        
+        return response()->stream($callback, 200, $headers);
+    }
 }

@@ -71,6 +71,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/users', [AdminController::class, 'users']);
     Route::get('/admin/users/{id}/progress', [AdminController::class, 'userProgress']);
     Route::get('/admin/analytics', [AdminController::class, 'analytics']);
+    Route::get('/admin/export-surveys', [AdminController::class, 'exportSurveys']);
     
     Route::post('/admin/courses', [AdminController::class, 'storeCourse']);
     Route::put('/admin/courses/{id}', [AdminController::class, 'updateCourse']);
