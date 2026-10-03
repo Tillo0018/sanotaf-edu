@@ -358,13 +358,17 @@ export default function AdminPage() {
 
   const handleExportExcel = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api'}/admin/export-surveys`, {
+      const token = localStorage.getItem('sanotaf_token');
+      // API_URL ni `@/lib/api` dan ishlatish maqsadga muvofiq,
+      // shunda railway serverga to'g'ri so'rov ketadi.
+      // Modomiki fetchApi bor ekan, shundan url yasaymiz:
+      const apiUrl = "https://sanotaf-edu.up.railway.app/api"; // backend base url
+      const response = await fetch(`${apiUrl}/admin/export-surveys`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      if (!response.ok) throw new Error("Yuklashda xatolik");
+      if (!response.ok) throw new Error("Yuklashda xatolik: " + response.statusText);
       
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
