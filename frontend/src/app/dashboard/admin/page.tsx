@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchApi, uploadFile } from "@/lib/api";
+import { fetchApi, uploadFile, API_URL } from "@/lib/api";
 import { Loader2, Users, BookOpen, Plus, Trash2, Edit, ChevronDown, ChevronRight, Video, FileText, HelpCircle, CheckCircle2, MessageSquare, Upload, BarChart3 } from "lucide-react";
 import { useAuth } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
@@ -359,11 +359,8 @@ export default function AdminPage() {
   const handleExportExcel = async () => {
     try {
       const token = localStorage.getItem('sanotaf_token');
-      // API_URL ni `@/lib/api` dan ishlatish maqsadga muvofiq,
-      // shunda railway serverga to'g'ri so'rov ketadi.
-      // Modomiki fetchApi bor ekan, shundan url yasaymiz:
-      const apiUrl = "https://sanotaf-edu.up.railway.app/api"; // backend base url
-      const response = await fetch(`${apiUrl}/admin/export-surveys`, {
+      // Import qilingan API_URL ni ishlatamiz, lokal yoki production bo'lishidan qat'i nazar
+      const response = await fetch(`${API_URL}/admin/export-surveys`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
